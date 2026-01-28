@@ -7,7 +7,7 @@ const Herosection = () => {
   return (
     <>
       <div
-        className="h-screen flex flex-col items-center"
+        className="xl:h-screen flex flex-col items-center"
         style={{
           background: `url(${Bg})`,
           backgroundRepeat: "no-repeat",
