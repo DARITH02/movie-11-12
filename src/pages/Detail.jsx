@@ -1,12 +1,12 @@
-import React, { useEffect, useState } from "react";
-import Herosection from "../components/Herosection";
-
-import Card from "../components/Card";
 import axios from "axios";
-import { Link } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
 
-const Home = () => {
+const Detail = () => {
   const [movies, setMovie] = useState([]);
+  const [finding, setFind] = useState(null);
+  const { id } = useParams();
+  //   console.log(id);
 
   const options = {
     method: "GET",
@@ -32,35 +32,17 @@ const Home = () => {
         options,
       )
       .then((res) => setMovie(res.data.results));
+
+    const find = movies.find((m) => m.id == id);
+
+    setFind(find);
+
+    // console.log(find);
   }, []);
 
-  console.log(movies);
+  //   const [finding, setFind] = useState([]);
 
-  return (
-    <>
-      <div>
-        <Herosection />
-      </div>
-      <div className="bg-[#09041f] text-gray-50 ">
-        <div className="md:w-11/12  m-auto">
-          <h1 className="font-bold text-4xl lg:text-5xl ">Popular Page 1</h1>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 md:gap-5 xl:gap-7 mt-9">
-            {movies.map((m, i) => (
-              <Link to={`/detail/${m["id"]}`}>
-                <Card
-                  key={i}
-                  title={m["name"]}
-                  img={m["backdrop_path"]}
-                  popular={m["popularity"]}
-                />
-              </Link>
-            ))}
-          </div>
-        </div>
-      </div>
-    </>
-  );
+  return <div>{finding["name"]}</div>;
 };
 
-export default Home;
+export default Detail;
